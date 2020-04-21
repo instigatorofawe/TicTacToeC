@@ -6,4 +6,4 @@ set(CMAKE_C_STANDARD 11)
 add_subdirectory(util)
 
 add_executable(TicTacToeC main.c)
-target_link_libraries(TicTacToe util)
+target_link_libraries(TicTacToeC util)
