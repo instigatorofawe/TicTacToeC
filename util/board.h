@@ -9,5 +9,6 @@ struct Board;
 
 struct Board *initialize_board();
 void print_board(struct Board *board);
+int winner(struct Board *board);
 
 #endif //TICTACTOEC_BOARD_H
