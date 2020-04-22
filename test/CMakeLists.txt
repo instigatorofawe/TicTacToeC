@@ -1,3 +1,3 @@
-add_executable(run_unit_tests test_game.cpp)
+add_executable(run_unit_tests test_game.cpp test_memory_management.cpp)
 
 target_link_libraries(run_unit_tests gtest gtest_main pthread util)

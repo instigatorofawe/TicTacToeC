@@ -7,7 +7,7 @@
 
 typedef struct Board {
     int turn; // Whose turn it is
-    char board_state[3][3]; // Pointer to board state
+    char board_state[3][3]; // Board state
 } Board;
 
 Board *initialize_board();
