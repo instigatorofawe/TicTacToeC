@@ -3,13 +3,14 @@
 #include <stdlib.h>
 
 #include "util/board.h"
+#include "util/game.h"
 
 int main() {
     int option;
     int arg;
 
     while (true) {
-        printf("1. Single Player\n2. Multiplayer\n");
+        printf("1. Single Player\n2. Multiplayer\n3. Exit\n");
         arg = scanf("%d", &option);
 
         if (arg == 0) {
@@ -19,10 +20,13 @@ int main() {
 
         switch (option) {
             case 1:
-                printf("Not yet implemented!\n");
-            case 2:
-
+                play_singleplayer();
                 break;
+            case 2:
+                play_multiplayer();
+                break;
+            case 3:
+                goto escape;
             default:
                 printf("Invalid choice!\n");
                 continue;
@@ -33,10 +37,6 @@ int main() {
             break;
         }
     }
-
-    struct Board *board = initialize_board();
-    print_board(board);
-    free(board);
 
     return 0;
 }
