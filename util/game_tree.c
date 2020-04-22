@@ -17,6 +17,11 @@ GameTree *initialize_gametree(Board *board) {
     return tree;
 }
 
+GameTree *create_gametree(Board *board) {
+    // TODO
+    return NULL;
+}
+
 void destroy_subtree(GameTree *tree) {
     for (int c = 0; c < 3; c++) {
         for (int d = 0; d < 3; d++) {

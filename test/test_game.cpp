@@ -29,3 +29,4 @@ TEST(test_game, coordinate_parse_test) {
     ASSERT_EQ(test_coordinate.x, -1);
     ASSERT_EQ(test_coordinate.y, -1);
 }
+
