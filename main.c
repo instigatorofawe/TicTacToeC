@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h>
 
-#include "util/board.h"
 #include "util/game.h"
 
 int main() {
