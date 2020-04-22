@@ -6,10 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Board {
-    int turn; // Whose turn it is
-    char board_state[3][3]; // Pointer to board state
-} Board;
+
 
 void print_board(Board *board) {
     for (int c = 0; c < 3; c++) {

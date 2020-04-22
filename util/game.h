@@ -1,4 +1,4 @@
-//
+// Game logic
 // Created by Ran Liu on 4/21/2020.
 //
 
@@ -8,6 +8,11 @@
 void play_singleplayer();
 void play_multiplayer();
 
-struct Coordinate parse_coordinate();
+typedef struct Coordinate {
+    int x;
+    int y;
+} Coordinate;
+
+Coordinate parse_coordinate(char *option);
 
 #endif //TICTACTOEC_GAME_H

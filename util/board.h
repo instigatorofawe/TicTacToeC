@@ -1,14 +1,17 @@
-//
+// Board logic
 // Created by Ran Liu on 4/21/2020.
 //
 
 #ifndef TICTACTOEC_BOARD_H
 #define TICTACTOEC_BOARD_H
 
-struct Board;
+typedef struct Board {
+    int turn; // Whose turn it is
+    char board_state[3][3]; // Pointer to board state
+} Board;
 
-struct Board *initialize_board();
-void print_board(struct Board *board);
-int winner(struct Board *board);
+Board *initialize_board();
+void print_board(Board *board);
+int winner(Board *board);
 
 #endif //TICTACTOEC_BOARD_H
