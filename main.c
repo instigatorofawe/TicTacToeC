@@ -4,19 +4,21 @@
 #include "util/game.h"
 
 int main() {
-    int option;
+    char option[100];
+    int option_number;
     int arg;
 
     while (true) {
         printf("1. Single Player\n2. Multiplayer\n3. Exit\n");
-        arg = scanf("%d", &option);
+        fgets(option, sizeof(option), stdin);
+        arg = sscanf(option, "%d", &option_number);
 
-        if (arg == 0) {
+        if (arg != 1) {
             printf("Invalid choice! Please enter a number.\n");
             continue;
         }
 
-        switch (option) {
+        switch (option_number) {
             case 1:
                 play_singleplayer();
                 break;

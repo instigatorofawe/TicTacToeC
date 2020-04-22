@@ -11,7 +11,7 @@ typedef struct Board {
 } Board;
 
 Board *initialize_board();
-void print_board(Board *board);
-int winner(Board *board);
+void print_board(const Board *board);
+int winner(const Board *board);
 
 #endif //TICTACTOEC_BOARD_H

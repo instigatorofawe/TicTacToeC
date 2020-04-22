@@ -13,6 +13,6 @@ typedef struct Coordinate {
     int y;
 } Coordinate;
 
-Coordinate parse_coordinate(char *option);
+Coordinate parse_coordinate(const char *option);
 
 #endif //TICTACTOEC_GAME_H

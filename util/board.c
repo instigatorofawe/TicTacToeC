@@ -6,9 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
-void print_board(Board *board) {
+void print_board(const Board *board) {
     for (int c = 0; c < 3; c++) {
         printf("   |   |   \n");
         printf(" %c | %c | %c \n",board->board_state[c][0],board->board_state[c][1],board->board_state[c][2]);
@@ -32,7 +30,7 @@ Board *initialize_board() {
     return new_board;
 }
 
-int winner(struct Board *board) {
+int winner(const Board *board) {
     // Check each row and column
     for (int c = 0; c < 3; c++) {
         if (board->board_state[c][0] == board->board_state[c][1] &&
@@ -61,6 +59,13 @@ int winner(struct Board *board) {
             return 1;
         }
     }
-
-    return -1; // Sentinel value, no winner
+    // Check if board is full, if so, then draw
+    for (int c = 0; c < 3; c++) {
+        for (int d = 0; d < 3; d++) {
+            if (board->board_state[c][d] == ' ') {
+                return -1; // Sentinel value, no winner
+            }
+        }
+    }
+    return 2; // Draw
 }
