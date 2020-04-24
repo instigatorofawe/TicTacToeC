@@ -15,3 +15,12 @@ TEST(test_game_tree,test_creation) {
     delete_subtree(root);
 
 }
+
+TEST(test_game_tree,test_solution) {
+
+    Board board = init_board();
+    GameTree *root = create_gametree(board);
+
+    root = gametree_do_move((Coordinate){0,0},root);
+    delete_subtree(root);
+}

@@ -80,14 +80,8 @@ void solve_gametree(GameTree *root) {
 }
 
 GameTree *gametree_do_move(Coordinate move, GameTree *root) {
-    for (int c = 0; c < 3; c++) {
-        for (int d = 0; d < 3; d++) {
-            if (move.x != c && move.y != d && root->children[c][d] != NULL) {
-                delete_subtree(root->children[c][d]);
-            }
-        }
-    }
     GameTree *return_value = root->children[move.x][move.y];
-    free(root);
+    root->children[move.x][move.y] = NULL;
+    delete_subtree(root);
     return return_value;
 }
