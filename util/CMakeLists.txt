@@ -1,1 +1,1 @@
-add_library(util board.h board.c game.h game.c game_tree.c game_tree.h)
+add_library(util game.c game.h board.c board.h player.h game_tree.c game_tree.h player.c)

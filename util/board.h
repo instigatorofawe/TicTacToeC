@@ -1,17 +1,30 @@
-// Board logic
-// Created by Ran Liu on 4/21/2020.
+//
+// Created by Ran Liu on 4/24/2020.
 //
 
 #ifndef TICTACTOEC_BOARD_H
 #define TICTACTOEC_BOARD_H
 
+#include <stdbool.h>
+#include "player.h"
+
 typedef struct Board {
-    int turn; // Whose turn it is
-    char board_state[3][3]; // Board state
+    Player turn; // Current player's turn
+    Player board_state[3][3];
 } Board;
 
-Board *initialize_board();
-void print_board(const Board *board);
-int winner(const Board *board);
+typedef struct Coordinate {
+    int x;
+    int y;
+} Coordinate;
+
+Board init_board();
+bool valid_move(Coordinate move, Board starting_position);
+Board do_move(Coordinate move, Board starting_position);
+Player winner(Board board);
+void print_board(Board board);
+
+Coordinate parse_move(char *move_str);
+char board_row_name(int c);
 
 #endif //TICTACTOEC_BOARD_H

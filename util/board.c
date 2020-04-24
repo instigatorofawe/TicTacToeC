@@ -1,71 +1,123 @@
 //
-// Created by Ran Liu on 4/21/2020.
+// Created by Ran Liu on 4/24/2020.
 //
-#include "board.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+#include "board.h"
 
-void print_board(const Board *board) {
+/**
+ * Initializes a board to default state
+ * @return
+ */
+Board init_board() {
+    Board board;
+    board.turn = X;
     for (int c = 0; c < 3; c++) {
-        printf("   |   |   \n");
-        printf(" %c | %c | %c \n",board->board_state[c][0],board->board_state[c][1],board->board_state[c][2]);
+        for (int d = 0; d < 3; d++ )
+            board.board_state[c][d] = Empty;
+    }
+    return board;
+}
 
+bool valid_move(Coordinate move, Board starting_position) {
+    // If there is no winner, then the move is valid if the square is empty
+    if (winner(starting_position) == Empty) {
+        return (starting_position.board_state[move.x][move.y] == Empty);
+    }
+    return false; // If there is a winner, no moves are valid
+}
+
+Board do_move(Coordinate move, Board starting_position) {
+    starting_position.board_state[move.x][move.y] = starting_position.turn;
+    starting_position.turn = opposite_player(starting_position.turn);
+    return starting_position;
+}
+
+void print_board(Board board) {
+    printf("  1   2   3\n");
+    for (int c = 0; c < 3; c++) {
+        printf("    |   |\n");
+        printf("%c %c | %c | %c\n", board_row_name(c), player_to_char(board.board_state[c][0]),
+                player_to_char(board.board_state[c][1]), player_to_char(board.board_state[c][2]));
         if (c != 2) {
-            printf("___|___|___\n");
+            printf(" ___|___|___\n");
         } else {
-            printf("   |   |   \n");
+            printf("    |   |\n");
         }
     }
 }
 
-Board *initialize_board() {
-    Board *new_board = (Board*) malloc(sizeof(Board));
-    new_board->turn = 0; // X goes first, O goes second
-    for (int c = 0; c < 3; c++) {
-        for (int d = 0; d < 3; d++) {
-            new_board->board_state[c][d] = ' ';
-        }
+Coordinate parse_move(char *move_str) {
+    Coordinate result = {0, 0};
+    switch(move_str[0]) {
+        case 'a':
+            result.x = 0;
+            break;
+        case 'b':
+            result.x = 1;
+            break;
+        case 'c':
+            result.x = 2;
+            break;
+        default:
+            result.x = -1; // Sentinel value
+            break;
     }
-    return new_board;
+    switch(move_str[1]) {
+        case '1':
+            result.y = 0;
+            break;
+        case '2':
+            result.y = 1;
+            break;
+        case '3':
+            result.y = 2;
+            break;
+        default:
+            result.y = -1;
+            break;
+    }
+    return result;
 }
 
-int winner(const Board *board) {
+Player winner(Board board) {
     // Check each row and column
     for (int c = 0; c < 3; c++) {
-        if (board->board_state[c][0] == board->board_state[c][1] &&
-            board->board_state[c][1] == board->board_state[c][2]) {
-            if (board->board_state[c][0] == 'X') {
-                return 0;
-            } else if (board->board_state[c][0] == 'O') {
-                return 1;
-            }
+        if (board.board_state[c][0] == board.board_state[c][1] && board.board_state[c][1] == board.board_state[c][2]) {
+            return board.board_state[c][0];
         }
-        if (board->board_state[0][c] == board->board_state[1][c] &&
-             board->board_state[1][c] == board->board_state[2][c]) {
-            if (board->board_state[0][c] == 'X') {
-                return 0;
-            } else if (board->board_state[0][c] == 'O') {
-                return 1;
-            }
+        if (board.board_state[0][c] == board.board_state[1][c] && board.board_state[1][c] == board.board_state[2][c]) {
+            return board.board_state[0][c];
         }
     }
-    // Check diagonals
-    if ((board->board_state[0][0] == board->board_state[1][1] && board->board_state[1][1] == board->board_state[2][2])
-        || (board->board_state[0][2] == board->board_state[1][1] && board->board_state[1][1] == board->board_state[2][0])) {
-        if (board->board_state[1][1] == 'X') {
-            return 0;
-        } else if (board->board_state[1][1] == 'O') {
-            return 1;
-        }
+    // Check diagnoals
+    if (board.board_state[0][0] == board.board_state[1][1] && board.board_state[1][1] == board.board_state[2][2]) {
+        return board.board_state[0][0];
     }
-    // Check if board is full, if so, then draw
+    if (board.board_state[0][2] == board.board_state[1][1] && board.board_state[1][1] == board.board_state[2][0]) {
+        return board.board_state[0][2];
+    }
+
+    // Check if board is full, if so, then draw.
     for (int c = 0; c < 3; c++) {
         for (int d = 0; d < 3; d++) {
-            if (board->board_state[c][d] == ' ') {
-                return -1; // Sentinel value, no winner
+            if (board.board_state[c][d] == Empty) {
+                return Empty; // Empty squares are available, there is no winner.
             }
         }
     }
-    return 2; // Draw
+    return Draw;
+}
+
+char board_row_name(int c) {
+    switch (c) {
+        case 0:
+            return 'a';
+        case 1:
+            return 'b';
+        case 2:
+            return 'c';
+        default:
+            return ' ';
+    }
 }
