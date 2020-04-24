@@ -49,7 +49,11 @@ void play_singleplayer() {
     if (winner(board) == Draw) {
         printf("Game ended in a draw!\n");
     } else {
-        printf("Player %c won!\n", player_to_char(winner(board)));
+        if (winner(board) == player) {
+            printf("Human player won!\n"); // This should theoretically be impossible to reach
+        } else {
+            printf("Computer player won!\n");
+        }
     }
 }
 
