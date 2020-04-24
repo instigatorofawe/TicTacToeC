@@ -8,12 +8,9 @@
 #include "board.h"
 #include "game_tree.h"
 
-void play_singleplayer() {
+void play_singleplayer(GameTree *root) {
     Board board = init_board();
     char buffer[100];
-
-    GameTree *root = create_gametree(board);
-    solve_gametree(root);
 
     Player player = (Player) rand() % 2; // Which player
     printf("You are player %c. The computer is player %c.\n", player_to_char(player), player_to_char(opposite_player(player)));
@@ -33,17 +30,16 @@ void play_singleplayer() {
                     printf("Invalid move! Format: a1-c3\n");
                 } else {
                     board = do_move(move, board);
-                    root = gametree_do_move(move, root);
+                    root = root->children[move.x][move.y];
                     valid_input = true;
                 }
             }
         } else {
             printf("Computer move: %c%d\n", board_row_name(root->solution.x), root->solution.y+1);
             board = do_move(root->solution, board);
-            root = gametree_do_move(root->solution, root);
+            root = root->children[root->solution.x][root->solution.y];
         }
     }
-    delete_subtree(root);
 
     print_board(board);
     if (winner(board) == Draw) {

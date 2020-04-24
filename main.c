@@ -8,6 +8,9 @@ int main() {
     int option_number;
     int arg;
 
+    GameTree *root = create_gametree(init_board());
+    solve_gametree(root); // Solve once upon initialization
+
     while (true) {
         printf("1. Single Player\n2. Multiplayer\n3. Exit\n");
         fgets(option, sizeof(option), stdin);
@@ -20,7 +23,7 @@ int main() {
 
         switch (option_number) {
             case 1:
-                play_singleplayer();
+                play_singleplayer(root);
                 break;
             case 2:
                 play_multiplayer();
@@ -37,6 +40,8 @@ int main() {
             break;
         }
     }
+
+    delete_subtree(root);
 
     return 0;
 }

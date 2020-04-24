@@ -5,7 +5,9 @@
 #ifndef TICTACTOEC_GAME_H
 #define TICTACTOEC_GAME_H
 
-void play_singleplayer();
+#include "game_tree.h"
+
+void play_singleplayer(GameTree *root);
 void play_multiplayer();
 
 #endif //TICTACTOEC_GAME_H
