@@ -27,5 +27,9 @@ TEST(test_board,test_parser) {
 }
 
 TEST(test_board,test_valid_move) {
+    Board board = init_board();
+    ASSERT_EQ(valid_move((Coordinate){0,0},board), true);
+    board = do_move((Coordinate){0,0},board);
+    ASSERT_EQ(valid_move((Coordinate){0,0},board), false);
 
 }

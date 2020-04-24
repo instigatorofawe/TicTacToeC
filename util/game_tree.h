@@ -17,9 +17,8 @@ typedef struct GameTree {
 
 GameTree *create_gametree(Board board);
 GameTree *init_gametree(Board board);
-
 void delete_subtree(GameTree *root);
-void delete_node(GameTree *node);
+GameTree *gametree_do_move(Coordinate move, GameTree *root);
 
 void solve_gametree(GameTree *root);
 
