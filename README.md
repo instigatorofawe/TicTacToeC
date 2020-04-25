@@ -5,8 +5,8 @@ This is Tic-Tac-Toe, implemented in C.
 
 Planned features:
 
-- Command line interface
-- Local multiplayer
-- Local singleplayer against perfect AI (minimax algorithm)
-- GUI interface via GTK+?
+- Command line interface - Completed
+- Local multiplayer - Completed
+- Local singleplayer against perfect AI (minimax algorithm) - Completed
+- GUI interface via GTK+? - Work in progress
 - Peer to peer multiplayer (probably not, though)
