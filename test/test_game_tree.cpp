@@ -8,6 +8,11 @@ extern "C" {
 #include "util/game_tree.h"
 }
 
+TEST(test_game_tree,test_node_size) {
+    printf("Board: %d bytes\n", sizeof(Board));
+    printf("GameTree: %d bytes\n", sizeof(GameTree));
+}
+
 TEST(test_game_tree,test_creation) {
 
     Board board = init_board();
