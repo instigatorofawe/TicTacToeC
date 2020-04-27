@@ -9,5 +9,6 @@
 
 void init(GtkApplication *application);
 void activate(GtkApplication *app, gpointer user_data);
+void button_press(GtkWidget *widget, GdkEventButton *event, gpointer data);
 
 #endif //TICTACTOEC_GUI_H
