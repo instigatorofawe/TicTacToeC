@@ -86,7 +86,9 @@ GameTree *gametree_do_move(Coordinate move, GameTree *root) {
     return return_value;
 }
 
-void solve_gametree_alpha_beta(GameTree *root) {
+void solve_gametree_alpha_beta(GameTree *root, int alpha, int beta) {
+    // Alpha: minimum assured value for player 1
+    // Beta: minimum assured value for player 2
     // Utility function: 1 for win, 0 for draw, -1 for loss
 
     // Base case: there are no valid moves, we return based on the winner in the current position
@@ -110,15 +112,28 @@ void solve_gametree_alpha_beta(GameTree *root) {
         for (int c = 0; c < 3; c++) {
             for (int d = 0; d < 3; d++) {
                 if (root->children[c][d] != NULL) {
-                    solve_gametree_minimax(root->children[c][d]);
+                    solve_gametree_alpha_beta(root->children[c][d], alpha, beta);
                     if (root->children[c][d]->minimax_values[root->board.turn] >
                         root->minimax_values[root->board.turn]) {
                         root->solution = (Coordinate) {c,d};
                         root->minimax_values[0] = root->children[c][d]->minimax_values[0];
                         root->minimax_values[1] = root->children[c][d]->minimax_values[1];
-                        // The only difference between this and naive minimax
-                        if (root->minimax_values[root->board.turn]) {
-                            return;
+
+                        // The only difference between this and naive minimax: bounding and pruning
+                        if (root->board.turn == X) {
+                            if (root->minimax_values[0] > alpha) {
+                                alpha = root->minimax_values[0];
+                            }
+                            if (root->minimax_values[1] < beta) {
+                                return;
+                            }
+                        } else if (root->board.turn == O) {
+                            if (root->minimax_values[1] > beta) {
+                                beta = root->minimax_values[1];
+                            }
+                            if (root->minimax_values[0] < alpha) {
+                                return;
+                            }
                         }
                     }
                 }

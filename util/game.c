@@ -28,10 +28,12 @@ void play_singleplayer(GameTree *root) {
 
                 if (move.x == -1 || move.y == -1) {
                     printf("Invalid move! Format: a1-c3\n");
-                } else {
+                } else if (valid_move(move, board)) {
                     board = do_move(move, board);
                     root = root->children[move.x][move.y];
                     valid_input = true;
+                } else {
+                    printf("Illegal move! Tile must be unoccupied.\n");
                 }
             }
         } else {
@@ -67,9 +69,11 @@ void play_multiplayer() {
 
             if (move.x == -1 || move.y == -1) {
                 printf("Invalid move! Format: a1-c3\n");
-            } else {
+            } else if (valid_move(move, board)) {
                 board = do_move(move, board);
                 valid_input = true;
+            } else {
+                printf("Illegal move! Tile must be unoccupied.\n");
             }
         }
     }

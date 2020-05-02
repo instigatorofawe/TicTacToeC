@@ -30,3 +30,13 @@ TEST(test_game_tree,test_solution) {
     root = gametree_do_move((Coordinate){0,0},root);
     delete_subtree(root);
 }
+
+TEST(test_game_tree,test_alpha_beta) {
+    Board board = init_board();
+    GameTree *root = create_gametree(board);
+
+    solve_gametree_alpha_beta(root, -1, -1);
+
+    root = gametree_do_move((Coordinate){0,0},root);
+    delete_subtree(root);
+}
