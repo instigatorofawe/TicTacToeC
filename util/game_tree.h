@@ -20,6 +20,7 @@ GameTree *init_gametree(Board board);
 void delete_subtree(GameTree *root);
 GameTree *gametree_do_move(Coordinate move, GameTree *root);
 
-void solve_gametree(GameTree *root);
+void solve_gametree_minimax(GameTree *root);
+void solve_gametree_alpha_beta(GameTree *root);
 
 #endif //TICTACTOEC_GAME_TREE_H

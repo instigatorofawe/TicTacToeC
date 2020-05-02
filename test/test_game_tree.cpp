@@ -25,7 +25,7 @@ TEST(test_game_tree,test_solution) {
 
     Board board = init_board();
     GameTree *root = create_gametree(board);
-    solve_gametree(root);
+    solve_gametree_minimax(root);
 
     root = gametree_do_move((Coordinate){0,0},root);
     delete_subtree(root);
