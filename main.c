@@ -13,8 +13,6 @@ int main(int argc, char** argv) {
     GameTree *root = create_gametree(init_board());
 //    solve_gametree_minimax(root); // Solve once upon initialization
 
-    solve_gametree_alpha_beta(root, -1, -1); // Solve using alpha beta pruning
-
     // Parse execution flags for GUI or command line
     bool gui = false;
 

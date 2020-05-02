@@ -37,6 +37,7 @@ void play_singleplayer(GameTree *root) {
                 }
             }
         } else {
+            solve_gametree_alpha_beta(root, -1, -1); // Solve using alpha beta pruning
             printf("Computer move: %c%d\n", board_row_name(root->solution.x), root->solution.y+1);
             board = do_move(root->solution, board);
             root = root->children[root->solution.x][root->solution.y];

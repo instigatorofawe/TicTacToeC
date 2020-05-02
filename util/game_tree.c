@@ -124,14 +124,14 @@ void solve_gametree_alpha_beta(GameTree *root, int alpha, int beta) {
                             if (root->minimax_values[0] > alpha) {
                                 alpha = root->minimax_values[0];
                             }
-                            if (root->minimax_values[1] < beta) {
+                            if (root->minimax_values[1] <= beta) {
                                 return;
                             }
                         } else if (root->board.turn == O) {
                             if (root->minimax_values[1] > beta) {
                                 beta = root->minimax_values[1];
                             }
-                            if (root->minimax_values[0] < alpha) {
+                            if (root->minimax_values[0] <= alpha) {
                                 return;
                             }
                         }
