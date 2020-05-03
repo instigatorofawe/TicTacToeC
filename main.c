@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 
     } else {
         while (true) {
-            printf("1. Single Player\n2. Multiplayer\n3. Exit\n");
+            printf("1. Single Player (Naive Minimax)\n2. Single Player (Alpha-Beta pruning)\n3. Single Player (Monte Carlo Tree Search)\n4. Multiplayer\n5. Exit\n");
             fgets(option, sizeof(option), stdin);
             arg = sscanf(option, "%d", &option_number);
 
@@ -47,12 +47,16 @@ int main(int argc, char** argv) {
 
             switch (option_number) {
                 case 1:
-                    play_singleplayer(root);
+                    play_singleplayer(root, false);
+                    solve_gametree_minimax(root);
                     break;
                 case 2:
+                    play_singleplayer(root, true);
+                    break;
+                case 4:
                     play_multiplayer();
                     break;
-                case 3:
+                case 5:
                     goto escape;
                 default:
                     printf("Invalid choice!\n");

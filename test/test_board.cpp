@@ -33,3 +33,22 @@ TEST(test_board,test_valid_move) {
     ASSERT_EQ(valid_move((Coordinate){0,0},board), false);
 
 }
+
+TEST(test_board,test_winner) {
+    Board board = init_board();
+    board.board_state[0][0] = O;
+    board.board_state[1][0] = O;
+
+    board.board_state[0][2] = X;
+    board.board_state[1][2] = X;
+    board.board_state[2][2] = X;
+    print_board(board);
+
+    int d = 2;
+    ASSERT_EQ(board.board_state[0][d], board.board_state[1][d]);
+    ASSERT_EQ(board.board_state[1][d], board.board_state[2][d]);
+    ASSERT_TRUE(board.board_state[0][d] == board.board_state[1][d] && board.board_state[1][d] == board.board_state[2][d]);
+
+    ASSERT_EQ(winner(board), X);
+
+}

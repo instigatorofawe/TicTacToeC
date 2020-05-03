@@ -83,18 +83,26 @@ Coordinate parse_move(char *move_str) {
 Player winner(Board board) {
     // Check each row and column
     for (int c = 0; c < 3; c++) {
-        if (board.board_state[c][0] == board.board_state[c][1] && board.board_state[c][1] == board.board_state[c][2]) {
+        if (board.board_state[c][0] == board.board_state[c][1] &&
+            board.board_state[c][1] == board.board_state[c][2] &&
+            board.board_state[c][0] != Empty) {
             return board.board_state[c][0];
         }
-        if (board.board_state[0][c] == board.board_state[1][c] && board.board_state[1][c] == board.board_state[2][c]) {
+        if (board.board_state[0][c] == board.board_state[1][c] &&
+            board.board_state[1][c] == board.board_state[2][c] &&
+            board.board_state[0][c] != Empty) {
             return board.board_state[0][c];
         }
     }
-    // Check diagnoals
-    if (board.board_state[0][0] == board.board_state[1][1] && board.board_state[1][1] == board.board_state[2][2]) {
+    // Check diagonals
+    if (board.board_state[0][0] == board.board_state[1][1] &&
+        board.board_state[1][1] == board.board_state[2][2] &&
+        board.board_state[0][0] != Empty) {
         return board.board_state[0][0];
     }
-    if (board.board_state[0][2] == board.board_state[1][1] && board.board_state[1][1] == board.board_state[2][0]) {
+    if (board.board_state[0][2] == board.board_state[1][1] &&
+        board.board_state[1][1] == board.board_state[2][0] &&
+        board.board_state[0][2] != Empty) {
         return board.board_state[0][2];
     }
 

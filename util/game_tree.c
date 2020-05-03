@@ -90,6 +90,10 @@ void solve_gametree_alpha_beta(GameTree *root, int alpha, int beta) {
     // Alpha: minimum assured value for player 1
     // Beta: minimum assured value for player 2
     // Utility function: 1 for win, 0 for draw, -1 for loss
+    // Reset values
+    root->solution = (Coordinate) {-1,-1};
+    root->minimax_values[0] = -100;
+    root->minimax_values[1] = -100; // Sentinel value indicating the current node has not yet been solved
 
     // Base case: there are no valid moves, we return based on the winner in the current position
     if (winner(root->board) != Empty) {
@@ -141,3 +145,4 @@ void solve_gametree_alpha_beta(GameTree *root, int alpha, int beta) {
         }
     }
 }
+

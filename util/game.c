@@ -8,7 +8,12 @@
 #include "board.h"
 #include "game_tree.h"
 
-void play_singleplayer(GameTree *root) {
+/**
+ * Plays single player using minimax solver, either naive or alpha-beta pruning approach
+ * @param root Root of game tree to use
+ * @param resolve whether or not solver has to compute move each turn
+ */
+void play_singleplayer(GameTree *root, bool resolve) {
     Board board = init_board();
     char buffer[100];
 
@@ -37,7 +42,9 @@ void play_singleplayer(GameTree *root) {
                 }
             }
         } else {
-            solve_gametree_alpha_beta(root, -1, -1); // Solve using alpha beta pruning
+            if (resolve) {
+                solve_gametree_alpha_beta(root, -1, -1); // Solve using alpha beta pruning
+            }
             printf("Computer move: %c%d\n", board_row_name(root->solution.x), root->solution.y+1);
             board = do_move(root->solution, board);
             root = root->children[root->solution.x][root->solution.y];
@@ -85,4 +92,8 @@ void play_multiplayer() {
     } else {
         printf("Player %c won!\n", player_to_char(winner(board)));
     }
+}
+
+void play_singleplayer_monte_carlo(int num_iterations) {
+
 }
