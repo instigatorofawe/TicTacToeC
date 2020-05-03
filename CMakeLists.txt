@@ -19,5 +19,5 @@ add_subdirectory(gui)
 add_subdirectory(test)
 
 add_executable(TicTacToeC main.c)
-target_link_libraries(TicTacToeC util gui)
+target_link_libraries(TicTacToeC util gui m)
 target_link_libraries(TicTacToeC gtk-3 gio-2.0 gobject-2.0)
