@@ -16,6 +16,19 @@ TEST(test_monte_carlo, test_allocation) {
     delete_monte_carlo_tree(root);
 }
 
+TEST(test_monte_carlo, test_do_iteration) {
+    Board board = init_board();
+    board.board_state[1][1] = X;
+    board.board_state[0][1] = O;
+    board.board_state[2][1] = X;
+    board.board_state[2][2] = O;
+
+    MonteCarloTree *root = init_monte_carlo_tree(board);
+    for (int c = 0; c < 1000; c++) {
+        monte_carlo_do_iteration(root);
+    }
+}
+
 TEST(test_monte_carlo, test_visit_count) {
     Board board = init_board();
     MonteCarloTree *root = init_monte_carlo_tree(board);
@@ -37,9 +50,10 @@ TEST(test_monte_carlo, test_uct) {
     Board board = init_board();
     MonteCarloTree *root = init_monte_carlo_tree(board);
 
-    for(int c = 0; c < 10; c++) {
+    for(int c = 0; c < 1000; c++) {
         monte_carlo_do_iteration(root);
     }
+    monte_carlo_get_move(root);
 
 
 
