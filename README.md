@@ -15,4 +15,4 @@ The following solver algorithms are implemented:
 
 - Naive minimax - Completed
 - Minimax with alpha-beta pruning - Completed
-- Monte carlo tree search - In progress
+- Monte carlo tree search - Completed
