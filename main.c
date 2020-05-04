@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
                     play_singleplayer(root, true);
                     break;
                 case 3:
-                    play_singleplayer_monte_carlo(4000);
+                    play_singleplayer_monte_carlo(100000);
                     break;
                 case 4:
                     play_multiplayer();
