@@ -27,6 +27,7 @@ TEST(test_monte_carlo, test_do_iteration) {
     for (int c = 0; c < 1000; c++) {
         monte_carlo_do_iteration(root);
     }
+    delete_monte_carlo_tree(root);
 }
 
 TEST(test_monte_carlo, test_visit_count) {
