@@ -47,8 +47,8 @@ int main(int argc, char** argv) {
 
             switch (option_number) {
                 case 1:
-                    play_singleplayer(root, false);
                     solve_gametree_minimax(root);
+                    play_singleplayer(root, false);
                     break;
                 case 2:
                     play_singleplayer(root, true);

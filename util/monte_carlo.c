@@ -57,7 +57,7 @@ Coordinate monte_carlo_get_move(MonteCarloTree *root) {
             if (root->children[c][d] != NULL) {
                 double value = (0.5*root->children[c][d]->draws + root->children[c][d]->wins[root->board.turn])/root->children[c][d]->visits;
 //                printf("UCT of node %d,%d: %f\n",c,d,compute_uct(root,root->children[c][d], root->board.turn));
-                printf("Win rate of node %d,%d: %f, %d w / %d d / %d\n",c,d,value, root->children[c][d]->wins[root->board.turn], root->children[c][d]->draws, root->children[c][d]->visits);
+//                printf("Win rate of node %d,%d: %f, %d w / %d d / %d\n",c,d,value, root->children[c][d]->wins[root->board.turn], root->children[c][d]->draws, root->children[c][d]->visits);
                 if (value > current_value) {
                     current_value = value;
                     result = (Coordinate){c,d};
