@@ -5,6 +5,8 @@
 #ifndef TICTACTOEC_HASHMAP_H
 #define TICTACTOEC_HASHMAP_H
 
+#include <stdbool.h>
+
 typedef struct HashNode {
     unsigned int key;
     void *value;
@@ -16,9 +18,12 @@ typedef struct HashMap{
     HashNode **nodes;
 } HashMap;
 
-HashNode* init_hash_node();
+HashNode* init_hash_node(unsigned int key, void* value, HashNode* next);
 HashMap* init_hashmap(unsigned int size);
+void delete_hashmap(HashMap *map);
 
-void hashmap_insert(unsigned int key, void* value);
+bool hashmap_contains(HashMap* map, unsigned int key);
+void hashmap_insert(HashMap* map, unsigned int key, void* value);
+void *hashmap_get(HashMap* map, unsigned int key);
 
 #endif //TICTACTOEC_HASHMAP_H
