@@ -14,7 +14,10 @@ Planned features:
 The following solver algorithms are implemented:
 
 - Naive minimax - Completed
-- Naive minimax with hash table node lookup - Work in progress
 - Minimax with alpha-beta pruning - Completed
 - Monte carlo tree search - Completed
 - Tabular Q-learning - Planned
+
+#### Changelog:
+
+- 10/17/2020: Added hash table lookup to game tree initialization procedure to reduce nodes.
