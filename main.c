@@ -10,7 +10,8 @@ int main(int argc, char** argv) {
     int option_number;
     int arg;
 
-    GameTree *root = create_gametree(init_board());
+    HashMap *hash_map = init_hashmap(1024);
+    GameTree *root = create_gametree_hashed(init_board(), hash_map);
 //    solve_gametree_minimax(root); // Solve once upon initialization
 
     // Parse execution flags for GUI or command line
@@ -71,11 +72,10 @@ int main(int argc, char** argv) {
                 break;
             }
         }
-
-
     }
 
-    delete_subtree(root);
+    //    delete_subtree(root);
+    delete_hashmap(hash_map, true);
 
     return status;
 }
