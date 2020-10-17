@@ -23,9 +23,12 @@ HashMap* init_hashmap(unsigned int size) {
     return result;
 }
 
-void delete_hashmap(HashMap *map) {
+void delete_hashmap(HashMap *map, bool delete_values) {
     for (int c = 0; c < map->size; c++) {
         if (map->nodes[c] != NULL) {
+            if (delete_values) {
+                free(map->nodes[c]->value);
+            }
             free(map->nodes[c]);
         }
     }

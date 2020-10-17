@@ -54,5 +54,23 @@ TEST(test_board,test_winner) {
 }
 
 TEST(test_board,test_hash) {
+    Board board = init_board();
+    board.board_state[0][0] = O;
+    board.board_state[1][0] = O;
+
+    board.board_state[0][2] = X;
+    board.board_state[1][2] = X;
+    board.board_state[2][2] = X;
+
+    printf("Hash: %d\n", hash_board(board));
+
+    Board parsed_board = from_hash(hash_board(board));
+
+    for (int c = 0; c < 3; c++) {
+        for (int d = 0; d < 3; d++) {
+            ASSERT_EQ(board.board_state[c][d], parsed_board.board_state[c][d]);
+        }
+    }
+    print_board(parsed_board);
 
 }

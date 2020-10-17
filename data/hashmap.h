@@ -20,7 +20,7 @@ typedef struct HashMap{
 
 HashNode* init_hash_node(unsigned int key, void* value, HashNode* next);
 HashMap* init_hashmap(unsigned int size);
-void delete_hashmap(HashMap *map);
+void delete_hashmap(HashMap *map, bool delete_values);
 
 bool hashmap_contains(HashMap* map, unsigned int key);
 void hashmap_insert(HashMap* map, unsigned int key, void* value);

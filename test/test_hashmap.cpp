@@ -15,7 +15,7 @@ TEST(test_hashmap,test_init) {
     printf("HashMap size: %d\n", (int) sizeof(HashMap));
 
     HashMap* map = init_hashmap(16);
-    delete_hashmap(map);
+    delete_hashmap(map, true);
 }
 
 TEST(test_hashmap,test_function) {
@@ -30,5 +30,5 @@ TEST(test_hashmap,test_function) {
         ASSERT_EQ(*(int*)hashmap_get(map, hashes[c]), values[c]);
     }
 
-    delete_hashmap(map);
+    delete_hashmap(map, false);
 }
