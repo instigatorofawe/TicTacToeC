@@ -9,8 +9,8 @@ GameTree *create_gametree(Board board) {
     GameTree *root = init_gametree(board);
     for (int c = 0; c < 3; c++) {
         for (int d = 0; d < 3; d++) {
-            if (valid_move((Coordinate) {c,d}, board)) {
-                root->children[c][d] = create_gametree(do_move((Coordinate) {c,d}, board));
+            if (board_valid_move((Coordinate) {c, d}, board)) {
+                root->children[c][d] = create_gametree(board_do_move((Coordinate) {c, d}, board));
             }
         }
     }
@@ -45,9 +45,9 @@ void delete_subtree(GameTree *root) {
 void solve_gametree_minimax(GameTree *root) {
     // Utility function: 1 for win, 0 for draw, -1 for loss
 
-    // Base case: there are no valid moves, we return based on the winner in the current position
-    if (winner(root->board) != Empty) {
-        switch(winner(root->board)) {
+    // Base case: there are no valid moves, we return based on the board_winner in the current position
+    if (board_winner(root->board) != Empty) {
+        switch(board_winner(root->board)) {
             case X:
                 root->minimax_values[0] = 1;
                 root->minimax_values[1] = -1;
@@ -95,9 +95,9 @@ void solve_gametree_alpha_beta(GameTree *root, int alpha, int beta) {
     root->minimax_values[0] = -100;
     root->minimax_values[1] = -100; // Sentinel value indicating the current node has not yet been solved
 
-    // Base case: there are no valid moves, we return based on the winner in the current position
-    if (winner(root->board) != Empty) {
-        switch(winner(root->board)) {
+    // Base case: there are no valid moves, we return based on the board_winner in the current position
+    if (board_winner(root->board) != Empty) {
+        switch(board_winner(root->board)) {
             case X:
                 root->minimax_values[0] = 1;
                 root->minimax_values[1] = -1;

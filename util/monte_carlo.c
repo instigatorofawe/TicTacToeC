@@ -34,7 +34,7 @@ void delete_monte_carlo_tree(MonteCarloTree *root) {
     free(root);
 }
 
-double compute_uct(MonteCarloTree *parent, MonteCarloTree *child, Player turn) {
+double monte_carlo_compute_uct(MonteCarloTree *parent, MonteCarloTree *node, Player turn) {
 //    printf("Computing uct for:\n");
 //    print_board(child->board);
 //    printf("Turn: %c, visits: %d, %d\n", player_to_char(turn), parent->visits, child->visits);
@@ -42,10 +42,10 @@ double compute_uct(MonteCarloTree *parent, MonteCarloTree *child, Player turn) {
     if (parent->visits == 0) {
         return 0;
     }
-    if (child->visits == 0) {
+    if (node->visits == 0) {
         return 0;
     }
-    return (double)(child->wins[turn])/child->visits + sqrt(2) * sqrt(log(parent->visits)/child->visits);
+    return (double)(node->wins[turn]) / node->visits + sqrt(2) * sqrt(log(parent->visits) / node->visits);
 }
 
 Coordinate monte_carlo_get_move(MonteCarloTree *root) {
@@ -56,7 +56,7 @@ Coordinate monte_carlo_get_move(MonteCarloTree *root) {
         for (int d = 0; d < 3; d++) {
             if (root->children[c][d] != NULL) {
                 double value = (0.5*root->children[c][d]->draws + root->children[c][d]->wins[root->board.turn])/root->children[c][d]->visits;
-//                printf("UCT of node %d,%d: %f\n",c,d,compute_uct(root,root->children[c][d], root->board.turn));
+//                printf("UCT of node %d,%d: %f\n",c,d,monte_carlo_compute_uct(root,root->children[c][d], root->board.turn));
 //                printf("Win rate of node %d,%d: %f, %d w / %d d / %d\n",c,d,value, root->children[c][d]->wins[root->board.turn], root->children[c][d]->draws, root->children[c][d]->visits);
                 if (value > current_value) {
                     current_value = value;
@@ -78,7 +78,7 @@ Player monte_carlo_do_iteration(MonteCarloTree *root) {
     if (root == NULL) {
         printf("Null root!\n");
     }
-    Player current_winner = winner(root->board);
+    Player current_winner = board_winner(root->board);
     if (current_winner != Empty) {
 //        printf("Terminal node: \n");
 //        print_board(root->board);
@@ -98,10 +98,10 @@ Player monte_carlo_do_iteration(MonteCarloTree *root) {
 
     for (int c = 0; c < 3; c++) {
         for (int d = 0; d < 3; d++) {
-            if (root->children[c][d] == NULL && valid_move((Coordinate){c,d},root->board)) {
+            if (root->children[c][d] == NULL && board_valid_move((Coordinate) {c, d}, root->board)) {
 //                printf("Unvisited node:\n");
-//                print_board(do_move((Coordinate){c,d},root->board));
-                root->children[c][d] = init_monte_carlo_tree(do_move((Coordinate){c,d},root->board));
+//                print_board(board_do_move((Coordinate){c,d},root->board));
+                root->children[c][d] = init_monte_carlo_tree(board_do_move((Coordinate) {c, d}, root->board));
                 Player result = monte_carlo_do_iteration(root->children[c][d]);
 
                 root->visits = root->visits + 1;
@@ -112,7 +112,7 @@ Player monte_carlo_do_iteration(MonteCarloTree *root) {
                 }
                 return result;
             } else if (root->children[c][d] != NULL){
-                double uct = compute_uct(root, root->children[c][d], root->board.turn);
+                double uct = monte_carlo_compute_uct(root, root->children[c][d], root->board.turn);
 //                printf("UCT value: %f\n", uct);
                 if (uct > current_uct) {
                     highest = (Coordinate){c,d};

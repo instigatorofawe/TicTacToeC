@@ -43,7 +43,7 @@ unsigned int hash_board(Board board) {
     return hash;
 }
 
-Board from_hash(unsigned int hash) {
+Board board_from_hash(unsigned int hash) {
     Board board;
     int n_empty = 9;
     for (int c = 2; c >= 0; c--) {
@@ -74,15 +74,15 @@ Board from_hash(unsigned int hash) {
     return board;
 }
 
-bool valid_move(Coordinate move, Board starting_position) {
-    // If there is no winner, then the move is valid if the square is empty
-    if (winner(starting_position) == Empty) {
+bool board_valid_move(Coordinate move, Board starting_position) {
+    // If there is no board_winner, then the move is valid if the square is empty
+    if (board_winner(starting_position) == Empty) {
         return (starting_position.board_state[move.x][move.y] == Empty);
     }
-    return false; // If there is a winner, no moves are valid
+    return false; // If there is a board_winner, no moves are valid
 }
 
-Board do_move(Coordinate move, Board starting_position) {
+Board board_do_move(Coordinate move, Board starting_position) {
     starting_position.board_state[move.x][move.y] = starting_position.turn;
     starting_position.turn = opposite_player(starting_position.turn);
     return starting_position;
@@ -135,7 +135,7 @@ Coordinate parse_move(const char *move_str) {
     return result;
 }
 
-Player winner(Board board) {
+Player board_winner(Board board) {
     // Check each row and column
     for (int c = 0; c < 3; c++) {
         if (board.board_state[c][0] == board.board_state[c][1] &&
@@ -165,7 +165,7 @@ Player winner(Board board) {
     for (int c = 0; c < 3; c++) {
         for (int d = 0; d < 3; d++) {
             if (board.board_state[c][d] == Empty) {
-                return Empty; // Empty squares are available, there is no winner.
+                return Empty; // Empty squares are available, there is no board_winner.
             }
         }
     }

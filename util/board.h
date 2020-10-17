@@ -20,11 +20,11 @@ typedef struct Coordinate {
 
 Board init_board();
 unsigned int hash_board(Board board);
-Board from_hash(unsigned int hash);
+Board board_from_hash(unsigned int hash);
 
-bool valid_move(Coordinate move, Board starting_position);
-Board do_move(Coordinate move, Board starting_position);
-Player winner(Board board);
+bool board_valid_move(Coordinate move, Board starting_position);
+Board board_do_move(Coordinate move, Board starting_position);
+Player board_winner(Board board);
 void print_board(Board board);
 
 Coordinate parse_move(const char *move_str);

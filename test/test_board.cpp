@@ -28,9 +28,9 @@ TEST(test_board,test_parser) {
 
 TEST(test_board,test_valid_move) {
     Board board = init_board();
-    ASSERT_EQ(valid_move((Coordinate){0,0},board), true);
-    board = do_move((Coordinate){0,0},board);
-    ASSERT_EQ(valid_move((Coordinate){0,0},board), false);
+    ASSERT_EQ(board_valid_move((Coordinate) {0, 0}, board), true);
+    board = board_do_move((Coordinate) {0, 0}, board);
+    ASSERT_EQ(board_valid_move((Coordinate) {0, 0}, board), false);
 
 }
 
@@ -49,7 +49,7 @@ TEST(test_board,test_winner) {
     ASSERT_EQ(board.board_state[1][d], board.board_state[2][d]);
     ASSERT_TRUE(board.board_state[0][d] == board.board_state[1][d] && board.board_state[1][d] == board.board_state[2][d]);
 
-    ASSERT_EQ(winner(board), X);
+    ASSERT_EQ(board_winner(board), X);
 
 }
 
@@ -64,7 +64,7 @@ TEST(test_board,test_hash) {
 
     printf("Hash: %d\n", hash_board(board));
 
-    Board parsed_board = from_hash(hash_board(board));
+    Board parsed_board = board_from_hash(hash_board(board));
 
     for (int c = 0; c < 3; c++) {
         for (int d = 0; d < 3; d++) {

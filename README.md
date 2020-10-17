@@ -9,10 +9,12 @@ Planned features:
 - Local multiplayer - Completed
 - Local singleplayer against perfect AI (minimax algorithm) - Completed
 - GUI interface via GTK+? - Work in progress
-- Peer to peer multiplayer (probably not, though)
+- Peer to peer multiplayer - Planned, but unlikely to be delivered
 
 The following solver algorithms are implemented:
 
 - Naive minimax - Completed
+- Naive minimax with hash table node lookup - Work in progress
 - Minimax with alpha-beta pruning - Completed
 - Monte carlo tree search - Completed
+- Tabular Q-learning - Planned

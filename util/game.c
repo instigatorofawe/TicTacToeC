@@ -20,7 +20,7 @@ void play_singleplayer(GameTree *root, bool resolve) {
     Player player = (Player) rand() % 2; // Which player
     printf("You are player %c. The computer is player %c.\n", player_to_char(player), player_to_char(opposite_player(player)));
 
-    while (winner(board) == Empty) {
+    while (board_winner(board) == Empty) {
         print_board(board);
 
         // Human's turn.
@@ -33,8 +33,8 @@ void play_singleplayer(GameTree *root, bool resolve) {
 
                 if (move.x == -1 || move.y == -1) {
                     printf("Invalid move! Format: a1-c3\n");
-                } else if (valid_move(move, board)) {
-                    board = do_move(move, board);
+                } else if (board_valid_move(move, board)) {
+                    board = board_do_move(move, board);
                     root = root->children[move.x][move.y];
                     valid_input = true;
                 } else {
@@ -46,16 +46,16 @@ void play_singleplayer(GameTree *root, bool resolve) {
                 solve_gametree_alpha_beta(root, -1, -1); // Solve using alpha beta pruning
             }
             printf("Computer move: %c%d\n", board_row_name(root->solution.x), root->solution.y+1);
-            board = do_move(root->solution, board);
+            board = board_do_move(root->solution, board);
             root = root->children[root->solution.x][root->solution.y];
         }
     }
 
     print_board(board);
-    if (winner(board) == Draw) {
+    if (board_winner(board) == Draw) {
         printf("Game ended in a draw!\n");
     } else {
-        if (winner(board) == player) {
+        if (board_winner(board) == player) {
             printf("Human player won!\n"); // This should theoretically be impossible to reach
         } else {
             printf("Computer player won!\n");
@@ -66,7 +66,7 @@ void play_singleplayer(GameTree *root, bool resolve) {
 void play_multiplayer() {
     Board board = init_board();
     char buffer[100];
-    while (winner(board) == Empty) {
+    while (board_winner(board) == Empty) {
         print_board(board);
         bool valid_input = false;
 
@@ -77,8 +77,8 @@ void play_multiplayer() {
 
             if (move.x == -1 || move.y == -1) {
                 printf("Invalid move! Format: a1-c3\n");
-            } else if (valid_move(move, board)) {
-                board = do_move(move, board);
+            } else if (board_valid_move(move, board)) {
+                board = board_do_move(move, board);
                 valid_input = true;
             } else {
                 printf("Illegal move! Tile must be unoccupied.\n");
@@ -87,10 +87,10 @@ void play_multiplayer() {
     }
 
     print_board(board);
-    if (winner(board) == Draw) {
+    if (board_winner(board) == Draw) {
         printf("Game ended in a draw!\n");
     } else {
-        printf("Player %c won!\n", player_to_char(winner(board)));
+        printf("Player %c won!\n", player_to_char(board_winner(board)));
     }
 }
 
@@ -104,7 +104,7 @@ void play_singleplayer_monte_carlo(int num_iterations) {
 
 
 
-    while (winner(board) == Empty) {
+    while (board_winner(board) == Empty) {
         print_board(board);
 
         // Human's turn.
@@ -117,8 +117,8 @@ void play_singleplayer_monte_carlo(int num_iterations) {
 
                 if (move.x == -1 || move.y == -1) {
                     printf("Invalid move! Format: a1-c3\n");
-                } else if (valid_move(move, board)) {
-                    board = do_move(move, board);
+                } else if (board_valid_move(move, board)) {
+                    board = board_do_move(move, board);
                     valid_input = true;
                 } else {
                     printf("Illegal move! Tile must be unoccupied.\n");
@@ -133,15 +133,15 @@ void play_singleplayer_monte_carlo(int num_iterations) {
             delete_monte_carlo_tree(root);
 
             printf("Computer move: %c%d\n", board_row_name(move.x), move.y+1);
-            board = do_move(move, board);
+            board = board_do_move(move, board);
         }
     }
 
     print_board(board);
-    if (winner(board) == Draw) {
+    if (board_winner(board) == Draw) {
         printf("Game ended in a draw!\n");
     } else {
-        if (winner(board) == player) {
+        if (board_winner(board) == player) {
             printf("Human player won!\n"); // This should theoretically be impossible to reach
         } else {
             printf("Computer player won!\n");
