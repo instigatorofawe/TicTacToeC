@@ -15,9 +15,10 @@ include_directories(/usr/include/gdk-pixbuf-2.0)
 include_directories(/usr/include/atk-1.0)
 
 add_subdirectory(util)
+add_subdirectory(data)
 add_subdirectory(gui)
 add_subdirectory(test)
 
 add_executable(TicTacToeC main.c)
-target_link_libraries(TicTacToeC util gui m)
+target_link_libraries(TicTacToeC util gui data m)
 target_link_libraries(TicTacToeC gtk-3 gio-2.0 gobject-2.0)

@@ -1,0 +1,1 @@
+add_library(data hashmap.h hashmap.c hashmap.c hashmap.h)

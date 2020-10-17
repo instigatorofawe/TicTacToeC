@@ -9,8 +9,8 @@ extern "C" {
 }
 
 TEST(test_game_tree,test_node_size) {
-    printf("Board: %d bytes\n", sizeof(Board));
-    printf("GameTree: %d bytes\n", sizeof(GameTree));
+    printf("Board: %d bytes\n", (int)sizeof(Board));
+    printf("GameTree: %d bytes\n", (int)sizeof(GameTree));
 }
 
 TEST(test_game_tree,test_creation) {
@@ -22,9 +22,9 @@ TEST(test_game_tree,test_creation) {
 }
 
 TEST(test_game_tree,test_solution) {
-
     Board board = init_board();
     GameTree *root = create_gametree(board);
+
     solve_gametree_minimax(root);
 
     root = gametree_do_move((Coordinate){0,0},root);
