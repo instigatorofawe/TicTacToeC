@@ -26,12 +26,18 @@ HashMap* init_hashmap(unsigned int size) {
 void delete_hashmap(HashMap *map, bool delete_values) {
     for (int c = 0; c < map->size; c++) {
         if (map->nodes[c] != NULL) {
-            if (delete_values) {
-                free(map->nodes[c]->value);
+            HashNode *current = map->nodes[c];
+            while (current != NULL) {
+                HashNode *to_free = current;
+                current = current->next;
+                if (delete_values) {
+                    free(to_free->value);
+                }
+                free(to_free);
             }
-            free(map->nodes[c]);
         }
     }
+    free(map->nodes);
     free(map);
 }
 

@@ -14,11 +14,20 @@ TEST(test_game_tree,test_node_size) {
 }
 
 TEST(test_game_tree,test_creation) {
-
     Board board = init_board();
     GameTree *root = create_gametree(board);
     delete_subtree(root);
+}
 
+TEST(test_game_tree,test_hash_creation) {
+    Board board = init_board();
+    HashMap *map = init_hashmap(4096);
+    GameTree *root = create_gametree_hashed(board, map);
+    solve_gametree_minimax(root);
+    delete_hashmap(map, true);
+
+    extern unsigned int gametree_num_nodes;
+    printf("# of nodes: %d\n", gametree_num_nodes);
 }
 
 TEST(test_game_tree,test_solution) {

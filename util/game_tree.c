@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "game_tree.h"
 
+int gametree_num_nodes = 0;
+
 GameTree *create_gametree(Board board) {
     GameTree *root = init_gametree(board);
     for (int c = 0; c < 3; c++) {
@@ -17,7 +19,26 @@ GameTree *create_gametree(Board board) {
     return root;
 }
 
+GameTree *create_gametree_hashed(Board board, HashMap* hash_map) {
+    unsigned int board_hash = hash_board(board);
+    if (hashmap_contains(hash_map, board_hash)) {
+        return (GameTree*) hashmap_get(hash_map, board_hash);
+    } else {
+        GameTree *root = init_gametree(board);
+        hashmap_insert(hash_map, board_hash, root);
+        for (int c = 0; c < 3; c++) {
+            for (int d = 0; d < 3; d++) {
+                if (board_valid_move((Coordinate) {c, d}, board)) {
+                    root->children[c][d] = create_gametree_hashed(board_do_move((Coordinate) {c, d}, board), hash_map);
+                }
+            }
+        }
+        return root;
+    }
+}
+
 GameTree *init_gametree(Board board) {
+    gametree_num_nodes++;
     GameTree *tree = (GameTree*) malloc(sizeof(GameTree));
     tree->board = board;
     tree->solution = (Coordinate) {-1,-1};
@@ -44,6 +65,11 @@ void delete_subtree(GameTree *root) {
 
 void solve_gametree_minimax(GameTree *root) {
     // Utility function: 1 for win, 0 for draw, -1 for loss
+
+    // Check if node already solved. If solved, then we return.
+    if (root->minimax_values[0] != -100 && root->minimax_values[1] != -100) {
+        return;
+    }
 
     // Base case: there are no valid moves, we return based on the board_winner in the current position
     if (board_winner(root->board) != Empty) {
@@ -109,6 +135,8 @@ void solve_gametree_alpha_beta(GameTree *root, int alpha, int beta) {
             case Draw:
                 root->minimax_values[0] = 0;
                 root->minimax_values[1] = 0;
+                break;
+            default:
                 break;
         }
     } else {
