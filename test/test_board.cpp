@@ -52,3 +52,7 @@ TEST(test_board,test_winner) {
     ASSERT_EQ(winner(board), X);
 
 }
+
+TEST(test_board,test_hash) {
+
+}

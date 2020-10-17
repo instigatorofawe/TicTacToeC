@@ -5,18 +5,20 @@
 #ifndef TICTACTOEC_HASHMAP_H
 #define TICTACTOEC_HASHMAP_H
 
-typedef struct HashMap{
-
-} HashMap;
-
 typedef struct HashNode {
-    int key;
+    unsigned int key;
     void *value;
+    struct HashNode *next;
 } HashNode;
 
-HashMap* init_hashmap();
-HashNode* init_hashnode();
+typedef struct HashMap{
+    unsigned int size;
+    HashNode **nodes;
+} HashMap;
 
-void hashmap_insert(int key, void* value);
+HashNode* init_hash_node();
+HashMap* init_hashmap(unsigned int size);
+
+void hashmap_insert(unsigned int key, void* value);
 
 #endif //TICTACTOEC_HASHMAP_H

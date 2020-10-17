@@ -4,6 +4,6 @@
 
 #include "hashmap.h"
 
-void hashmap_insert(int key, void* value) {
+void hashmap_insert(unsigned int key, void* value) {
 
 }

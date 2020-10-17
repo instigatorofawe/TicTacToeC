@@ -19,6 +19,61 @@ Board init_board() {
     return board;
 }
 
+unsigned int hash_board(Board board) {
+    unsigned int hash = 0;
+    for (int c = 0; c < 3; c++) {
+        for (int d = 0; d < 3; d++) {
+            hash = hash * 3;
+
+            switch (board.board_state[c][d]) {
+                case Empty:
+                    hash += 0;
+                    break;
+                case X:
+                    hash += 1;
+                    break;
+                case O:
+                    hash += 2;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    return hash;
+}
+
+Board from_hash(unsigned int hash) {
+    Board board;
+    int n_empty = 9;
+    for (int c = 2; c >= 0; c--) {
+        for (int d = 2; d >= 0; d--) {
+            switch (hash % 3) {
+                case 0:
+                    board.board_state[c][d] = Empty;
+                    break;
+                case 1:
+                    board.board_state[c][d] = X;
+                    n_empty--;
+                    break;
+                case 2:
+                    board.board_state[c][d] = O;
+                    n_empty--;
+                    break;
+                default:
+                    break;
+            }
+            hash = hash / 3;
+        }
+    }
+    if (n_empty % 2 == 0) {
+        board.turn = O;
+    } else {
+        board.turn = X;
+    }
+    return board;
+}
+
 bool valid_move(Coordinate move, Board starting_position) {
     // If there is no winner, then the move is valid if the square is empty
     if (winner(starting_position) == Empty) {
@@ -47,7 +102,7 @@ void print_board(Board board) {
     }
 }
 
-Coordinate parse_move(char *move_str) {
+Coordinate parse_move(const char *move_str) {
     Coordinate result = {0, 0};
     switch(move_str[0]) {
         case 'a':

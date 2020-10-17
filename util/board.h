@@ -19,12 +19,15 @@ typedef struct Coordinate {
 } Coordinate;
 
 Board init_board();
+unsigned int hash_board(Board board);
+Board from_hash(unsigned int hash);
+
 bool valid_move(Coordinate move, Board starting_position);
 Board do_move(Coordinate move, Board starting_position);
 Player winner(Board board);
 void print_board(Board board);
 
-Coordinate parse_move(char *move_str);
+Coordinate parse_move(const char *move_str);
 char board_row_name(int c);
 
 #endif //TICTACTOEC_BOARD_H
